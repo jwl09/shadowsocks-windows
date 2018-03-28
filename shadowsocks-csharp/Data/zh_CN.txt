@@ -53,6 +53,7 @@ Show Password=显示密码
 Encryption=加密
 Plugin=插件
 Plugin Options=插件选项
+Is SIP003 Plugin=SIP003标准
 Proxy Port=代理端口
 Remarks=备注
 Timeout(Sec)=超时(秒)

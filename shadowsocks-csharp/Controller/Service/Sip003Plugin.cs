@@ -14,7 +14,7 @@ namespace Shadowsocks.Controller.Service
     {
         public IPEndPoint LocalEndPoint { get; private set; }
         public int ProcessId => _started ? _pluginProcess.Id : 0;
-
+        private bool _is_sip003 = false;
         private readonly object _startProcessLock = new object();
         private readonly Job _pluginJob;
         private readonly Process _pluginProcess;
@@ -33,10 +33,10 @@ namespace Shadowsocks.Controller.Service
                 return null;
             }
 
-            return new Sip003Plugin(server.plugin, server.plugin_opts, server.server, server.server_port);
+            return new Sip003Plugin(server.plugin, server.plugin_opts, server.server, server.server_port, server.is_sip003);
         }
 
-        private Sip003Plugin(string plugin, string pluginOpts, string serverAddress, int serverPort)
+        private Sip003Plugin(string plugin, string pluginOpts, string serverAddress, int serverPort, bool is_sip003 = true)
         {
             if (plugin == null) throw new ArgumentNullException(nameof(plugin));
             if (string.IsNullOrWhiteSpace(serverAddress))
@@ -50,13 +50,19 @@ namespace Shadowsocks.Controller.Service
 
             var appPath = Path.GetDirectoryName(new Uri(Assembly.GetExecutingAssembly().GetName().CodeBase).LocalPath);
 
+            this._is_sip003 = is_sip003;
+
             _pluginProcess = new Process
             {
-                StartInfo = new ProcessStartInfo
+                StartInfo = is_sip003 ? new ProcessStartInfo
                 {
                     FileName = plugin,
                     UseShellExecute = false,
+#if DEBUG
+                    CreateNoWindow = false,
+#else
                     CreateNoWindow = true,
+#endif
                     ErrorDialog = false,
                     WindowStyle = ProcessWindowStyle.Hidden,
                     WorkingDirectory = appPath ?? Environment.CurrentDirectory,
@@ -66,7 +72,20 @@ namespace Shadowsocks.Controller.Service
                         ["SS_REMOTE_PORT"] = serverPort.ToString(),
                         ["SS_PLUGIN_OPTIONS"] = pluginOpts
                     }
-                }
+                } : new ProcessStartInfo
+                {
+                    FileName = plugin,
+                    UseShellExecute = false,
+#if DEBUG
+                    CreateNoWindow = false,
+#else
+                    CreateNoWindow = true,
+#endif
+                    ErrorDialog = false,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    WorkingDirectory = appPath ?? Environment.CurrentDirectory,
+                    Arguments = is_sip003 ? "" : pluginOpts,
+                 }
             };
 
             _pluginJob = new Job();
@@ -85,12 +104,13 @@ namespace Shadowsocks.Controller.Service
                 {
                     return false;
                 }
-
-                var localPort = GetNextFreeTcpPort();
-                LocalEndPoint = new IPEndPoint(IPAddress.Loopback, localPort);
-
-                _pluginProcess.StartInfo.Environment["SS_LOCAL_HOST"] = LocalEndPoint.Address.ToString();
-                _pluginProcess.StartInfo.Environment["SS_LOCAL_PORT"] = LocalEndPoint.Port.ToString();
+                if (this._is_sip003)
+                {
+                    var localPort = GetNextFreeTcpPort();
+                    LocalEndPoint = new IPEndPoint(IPAddress.Loopback, localPort);
+                    _pluginProcess.StartInfo.Environment["SS_LOCAL_HOST"] = LocalEndPoint.Address.ToString();
+                    _pluginProcess.StartInfo.Environment["SS_LOCAL_PORT"] = LocalEndPoint.Port.ToString();
+                }
                 _pluginProcess.Start();
                 _pluginJob.AddProcess(_pluginProcess.Handle);
                 _started = true;

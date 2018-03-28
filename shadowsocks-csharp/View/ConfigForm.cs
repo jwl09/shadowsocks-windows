@@ -58,6 +58,7 @@ namespace Shadowsocks.View
             MyCancelButton.Text = I18N.GetString("Cancel");
             MoveUpButton.Text = I18N.GetString("Move &Up");
             MoveDownButton.Text = I18N.GetString("Move D&own");
+            IsSIP003.Text = I18N.GetString("Is SIP003 Plugin");
             this.Text = I18N.GetString("Edit Servers");
         }
 
@@ -99,6 +100,7 @@ namespace Shadowsocks.View
                 server.method = EncryptionSelect.Text;
                 server.plugin = PluginTextBox.Text;
                 server.plugin_opts = PluginOptionsTextBox.Text;
+                server.is_sip003 = IsSIP003.Checked;
                 server.remarks = RemarksTextBox.Text;
                 if (!int.TryParse(TimeoutTextBox.Text, out server.timeout))
                 {
@@ -136,6 +138,7 @@ namespace Shadowsocks.View
                 PluginOptionsTextBox.Text = server.plugin_opts;
                 RemarksTextBox.Text = server.remarks;
                 TimeoutTextBox.Text = server.timeout.ToString();
+                IsSIP003.Checked = server.is_sip003;
             }
         }
 

@@ -53,6 +53,7 @@ Show Password=パスワードを表示する
 Encryption=暗号化
 Plugin=プラグイン
 Plugin Options=プラグインのオプション
+Is SIP003 Plugin=SIP003標準
 Proxy Port=プロキシポート
 Remarks=付記
 Timeout(Sec)=タイムアウト (秒)

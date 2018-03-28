@@ -26,6 +26,7 @@ namespace Shadowsocks.Model
         public string method;
         public string plugin;
         public string plugin_opts;
+        public bool is_sip003;
         public string remarks;
         public int timeout;
 
@@ -74,6 +75,7 @@ namespace Shadowsocks.Model
             plugin_opts = "";
             password = "";
             remarks = "";
+            is_sip003 = true;
             timeout = DefaultServerTimeoutSec;
         }
 

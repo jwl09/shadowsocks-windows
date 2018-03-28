@@ -86,13 +86,13 @@ namespace Shadowsocks.Properties {
         ///Statistics Config...=統計情報の設定...
         ///Start on Boot=システムと同時に起動
         ///Forward Proxy...=フォワードプロキシの設定...
-        ///Allow Clients from LAN=LAN からのアクセスを許可
+        ///Allow other Devices to connect=他のデバイスからの接続を許可する
         ///Local PAC=ローカル PAC
         ///Online PAC=オンライン PAC
         ///Edit Local PAC File...=ローカル PAC ファイルの編集...
         ///Update Local PAC from GFWList=GFWList からローカル PAC を更新
         ///Edit User Rule for GFWList...=ユーザールールの編集...
-        ///Secure Local  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Sec [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string ja {
             get {
@@ -263,14 +263,13 @@ namespace Shadowsocks.Properties {
         ///Statistics Config...=统计配置...
         ///Start on Boot=开机启动
         ///Forward Proxy...=正向代理设置...
-        ///Allow Clients from LAN=允许来自局域网的连接
+        ///Allow other Devices to connect=允许其他设备连入
         ///Local PAC=使用本地 PAC
         ///Online PAC=使用在线 PAC
         ///Edit Local PAC File...=编辑本地 PAC 文件...
         ///Update Local PAC from GFWList=从 GFWList 更新本地 PAC
         ///Edit User Rule for GFWList...=编辑 GFWList 的用户规则...
-        ///Secure Local PAC=保护本地 PAC
-        ///Cop [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Secure Local PAC=保护本地 PA [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string zh_CN {
             get {
@@ -294,13 +293,13 @@ namespace Shadowsocks.Properties {
         ///Statistics Config...=統計設定檔...
         ///Start on Boot=開機啟動
         ///Forward Proxy...=正向 Proxy 設定...
-        ///Allow Clients from LAN=允許來自區域網路的連線
+        ///Allow other Devices to connect=允許其他裝置連入
         ///Local PAC=使用本機 PAC
         ///Online PAC=使用線上 PAC
         ///Edit Local PAC File...=編輯本機 PAC 檔案...
         ///Update Local PAC from GFWList=從 GFWList 更新本機 PAC
         ///Edit User Rule for GFWList...=編輯 GFWList 的使用者規則...
-        ///Secure Local PAC=安全本機 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///Secure Local PAC [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         internal static string zh_TW {
             get {

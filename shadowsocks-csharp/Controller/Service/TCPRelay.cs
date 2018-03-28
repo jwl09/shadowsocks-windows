@@ -571,7 +571,11 @@ namespace Shadowsocks.Controller
                 IProxy remote;
                 EndPoint proxyEP = null;
                 EndPoint serverEP = SocketUtil.GetEndPoint(_server.server, _server.server_port);
-                EndPoint pluginEP = _controller.GetPluginLocalEndPointIfConfigured(_server);
+                EndPoint pluginEP = null;
+                if(_server.is_sip003)
+                {
+                    pluginEP = _controller.GetPluginLocalEndPointIfConfigured(_server);
+                }
 
                 if (pluginEP != null)
                 {
